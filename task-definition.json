@@ -1,0 +1,58 @@
+{
+  "containerDefinitions": [
+    {
+      "name": "geogig",
+      "image": "841383619717.dkr.ecr.eu-central-1.amazonaws.com/geogig:1.2.1",
+      "memory": 1056,
+      "essential": true,
+      "portMappings": [
+        {
+          "hostPort": 0,
+          "containerPort": 8182,
+          "protocol": "tcp"
+        }
+      ],
+      "environment": [
+        {
+          "name": "GEOGIG_CACHE_MAX_SIZE",
+          "value": "0.5"
+        },
+        {
+          "name": "EMAIL",
+          "value": "data@agrista.com"
+        },
+        {
+          "name": "USER_NAME",
+          "value": "gis"
+        },
+        {
+          "name": "PGHOST",
+          "value": "berlin.ct4bmsqeiw9m.eu-central-1.rds.amazonaws.com"
+        },
+        {
+          "name": "PGPORT",
+          "value": "5432"
+        },
+        {
+          "name": "PGDATABASE",
+          "value": "gis"
+        },
+        {
+          "name": "PGUSER",
+          "value": "gis"
+        },
+        {
+          "name": "PGPASSWORD",
+          "value": "gis"
+        },
+        {
+          "name": "PGSCHEMA",
+          "value": "public"
+        }
+      ]
+    }
+  ],
+  "networkMode": "bridge",
+  "placementConstraints": [],
+  "family": "geogig"
+}

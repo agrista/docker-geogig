@@ -12,39 +12,38 @@ MAINTAINER Admire Nyakudya<admire@kartoza.com>
 # if you do not want to use caching
 #RUN  echo 'Acquire::http { Proxy "http://'${APT_CATCHER_IP}':3142"; };' >> /etc/apt/apt.conf.d/01proxy
 
-ARG VERSION="1.2.0"
+ARG VERSION="1.2.1"
 ARG BACKEND="DATABASE"
 
 # leave empty to use default plugins or set to "OSM" to install also OSM dev plugin
 ARG OSMPLUGIN=""
 
 #-------------Application Specific Stuff ----------------------------------------------------
-ENV GEOGIG_OPTS "-Djava.awt.headless=true -server -Xms2G -Xmx4G  "
+ENV GEOGIG_OPTS "-Djava.awt.headless=true -server -Xms768m -Xmx1560m "
 #-XX:+UseConcMarkSweepGC use this rather than parallel GC?
 ENV JAVA_OPTS "$JAVA_OPTS $GEOGIG_OPTS"
 
 ENV GEOGIG_CACHE_MAX_SIZE 0.5
-ENV EMAIL geogig@docker.com
+ENV EMAIL data@agrista.com
 ENV USER_NAME  geogig
 ENV STORAGE_BACKEND ${BACKEND}
-ENV PGHOST db
+ENV PGHOST localhost
 ENV PGPORT 5432
 ENV PGDATABASE gis
-ENV PGUSER docker
-ENV PGPASSWORD docker
+ENV PGUSER gis
+ENV PGPASSWORD gis
 ENV PGSCHEMA public
-RUN apt-get -y update
 
+RUN apt-get -y update
 RUN apt-get -y install default-jdk  daemontools postgresql
 
 RUN mkdir -p /tmp/resources
-
+ADD resources /tmp/resources
 
 ADD setup.sh /setup.sh
 RUN chmod 0755 /setup.sh
 RUN /setup.sh
 
-EXPOSE 8182
 ADD start.sh /start.sh
 RUN chmod 0755 /start.sh
 
