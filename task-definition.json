@@ -3,7 +3,7 @@
     {
       "name": "geogig",
       "image": "841383619717.dkr.ecr.eu-central-1.amazonaws.com/geogig:1.2.1",
-      "memory": 1056,
+      "memory": 1560,
       "essential": true,
       "portMappings": [
         {
